@@ -1,23 +1,32 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-  <title>Distraction-Free YouTube Player</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-
-<body>
-  <h1>Distraction-Free YouTube Player</h1>
-  <div class="container">
-    <h2>Enter YouTube Video URL:</h2>
-    <div class="input-container">
-      <input type="text" id="videoURL" placeholder="e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-      <button onclick="embedVideo()">Embed Video</button>
-    </div>
-    <div class="video-container" id="videoContainer"></div>
-  </div>
-  <script src="script.js"></script>
-</body>
-
-
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Distraction-Free YouTube Player</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Distraction-Free YouTube Player</h1>
+    </header>
+    <main>
+      <section class="container">
+        <h2>Enter YouTube Video URL:</h2>
+        <form id="videoForm">
+          <div class="input-container">
+            <input
+              type="url"
+              id="videoURL"
+              placeholder="e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              required
+            />
+            <button type="submit">Embed Video</button>
+          </div>
+        </form>
+        <div class="video-container" id="videoContainer"></div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
 </html>
