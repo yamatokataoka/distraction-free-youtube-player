@@ -27,12 +27,29 @@
     function embedVideo() {
       var videoURL = document.getElementById("videoURL").value;
       var videoID = extractVideoID(videoURL);
+
+      // Store the VideoID in local storage
+      localStorage.setItem("videoID", videoID);
+
       var videoEmbedURL = "https://www.youtube.com/embed/" + videoID;
       var iframe = document.createElement("iframe");
       iframe.setAttribute("width", "420");
       iframe.setAttribute("height", "345");
       iframe.setAttribute("src", videoEmbedURL);
       document.getElementById("videoContainer").appendChild(iframe);
+    }
+
+    // Check if the VideoID is stored in local storage and embed the video if it is
+    window.onload = function () {
+      var videoID = localStorage.getItem("videoID");
+      if (videoID !== null) {
+        var videoEmbedURL = "https://www.youtube.com/embed/" + videoID;
+        var iframe = document.createElement("iframe");
+        iframe.setAttribute("width", "420");
+        iframe.setAttribute("height", "345");
+        iframe.setAttribute("src", videoEmbedURL);
+        document.getElementById("videoContainer").appendChild(iframe);
+      }
     }
   </script>
 
