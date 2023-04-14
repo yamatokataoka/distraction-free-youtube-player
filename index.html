@@ -3,20 +3,35 @@
 
 <body>
 
-  <h2>Enter YouTube Video ID:</h2>
-  <input type="text" id="videoID">
+  <h2>Enter YouTube Video URL:</h2>
+  <input type="text" id="videoURL">
   <button onclick="embedVideo()">Embed Video</button>
   <br><br>
   <div id="videoContainer"></div>
 
   <script>
+    function extractVideoID(videoURL) {
+      var videoID = "";
+      if (videoURL.indexOf("youtu.be/") != -1) { // If the URL is in the short format
+        videoID = videoURL.split("youtu.be/")[1];
+      } else if (videoURL.indexOf("v=") != -1) { // If the URL is in the long format
+        videoID = videoURL.split("v=")[1];
+        var ampersandPosition = videoID.indexOf("&");
+        if (ampersandPosition != -1) {
+          videoID = videoID.substring(0, ampersandPosition);
+        }
+      }
+      return videoID;
+    }
+
     function embedVideo() {
-      var videoID = document.getElementById("videoID").value;
-      var videoURL = "https://www.youtube.com/embed/" + videoID;
+      var videoURL = document.getElementById("videoURL").value;
+      var videoID = extractVideoID(videoURL);
+      var videoEmbedURL = "https://www.youtube.com/embed/" + videoID;
       var iframe = document.createElement("iframe");
       iframe.setAttribute("width", "420");
       iframe.setAttribute("height", "345");
-      iframe.setAttribute("src", videoURL);
+      iframe.setAttribute("src", videoEmbedURL);
       document.getElementById("videoContainer").appendChild(iframe);
     }
   </script>
