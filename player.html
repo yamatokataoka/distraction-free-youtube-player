@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+  <h2>Enter YouTube Video ID:</h2>
+  <input type="text" id="videoID">
+  <button onclick="embedVideo()">Embed Video</button>
+  <br><br>
+  <div id="videoContainer"></div>
+
+  <script>
+    function embedVideo() {
+      var videoID = document.getElementById("videoID").value;
+      var videoURL = "https://www.youtube.com/embed/" + videoID;
+      var iframe = document.createElement("iframe");
+      iframe.setAttribute("width", "420");
+      iframe.setAttribute("height", "345");
+      iframe.setAttribute("src", videoURL);
+      document.getElementById("videoContainer").appendChild(iframe);
+    }
+  </script>
+
+</body>
+
+</html>
