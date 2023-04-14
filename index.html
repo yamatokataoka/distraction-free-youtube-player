@@ -1,13 +1,92 @@
-<!DOCTYPE html>
 <html>
 
-<body>
+<head>
+  <title>Distraction-Free YouTube Player</title>
+  <style>
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: #f9f9f9;
+    }
 
-  <h2>Enter YouTube Video URL:</h2>
-  <input type="text" id="videoURL">
-  <button onclick="embedVideo()">Embed Video</button>
-  <br><br>
-  <div id="videoContainer"></div>
+    h1,
+    h2 {
+      font-weight: 400;
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .container {
+      width: 854px;
+      margin: 0 auto;
+      margin-top: 50px;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+    }
+
+    .input-container {
+      display: flex;
+      margin-bottom: 20px;
+    }
+
+    .input-container input[type="text"] {
+      flex-grow: 1;
+      border: none;
+      border-bottom: 1px solid #ccc;
+      outline: none;
+      font-size: 16px;
+      padding: 10px;
+      transition: border-color 0.2s ease-in-out;
+    }
+
+    .input-container input[type="text"]:focus {
+      border-color: #4c9aff;
+    }
+
+    .input-container button {
+      background-color: #4c9aff;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+      margin-left: 10px;
+    }
+
+    .input-container button:hover {
+      background-color: #3072c4;
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      margin-top: 20px;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Distraction-Free YouTube Player</h1>
+  <div class="container">
+    <h2>Enter YouTube Video URL:</h2>
+    <div class="input-container">
+      <input type="text" id="videoURL" placeholder="e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+      <button onclick="embedVideo()">Embed Video</button>
+    </div>
+    <div class="video-container" id="videoContainer"></div>
+  </div>
 
   <script>
     function extractVideoID(videoURL) {
@@ -27,32 +106,22 @@
     function embedVideo() {
       var videoURL = document.getElementById("videoURL").value;
       var videoID = extractVideoID(videoURL);
-
-      // Store the VideoID in local storage
-      localStorage.setItem("videoID", videoID);
-
       var videoEmbedURL = "https://www.youtube.com/embed/" + videoID;
-      var iframe = document.createElement("iframe");
-      iframe.setAttribute("width", "420");
-      iframe.setAttribute("height", "345");
-      iframe.setAttribute("src", videoEmbedURL);
-      document.getElementById("videoContainer").appendChild(iframe);
+      var videoContainer = document.getElementById("videoContainer");
+      videoContainer.innerHTML = '<iframe width="854" height="480" src="' + videoEmbedURL + '" frameborder="0" allowfullscreen></iframe>';
+      localStorage.setItem('videoID', videoID);
     }
 
-    // Check if the VideoID is stored in local storage and embed the video if it is
     window.onload = function () {
-      var videoID = localStorage.getItem("videoID");
-      if (videoID !== null) {
+      var videoID = localStorage.getItem('videoID');
+      if (videoID) {
         var videoEmbedURL = "https://www.youtube.com/embed/" + videoID;
-        var iframe = document.createElement("iframe");
-        iframe.setAttribute("width", "420");
-        iframe.setAttribute("height", "345");
-        iframe.setAttribute("src", videoEmbedURL);
-        document.getElementById("videoContainer").appendChild(iframe);
+        var videoContainer = document.getElementById("videoContainer");
+        videoContainer.innerHTML = '<iframe width="854" height="480" src="' + videoEmbedURL + '" frameborder="0" allowfullscreen></iframe>';
+        document.getElementById("videoURL").value = 'https://www.youtube.com/watch?v=' + videoID;
       }
-    }
+    };
   </script>
-
 </body>
 
 </html>
