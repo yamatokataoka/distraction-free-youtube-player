@@ -13,13 +13,27 @@ function extractVideoID(videoURL) {
   return videoID;
 }
 
+// This function creates the iframe element with the given URL
+function createIframeElement(videoEmbedURL) {
+  const iframe = document.createElement('iframe');
+  iframe.width = '854';
+  iframe.height = '480';
+  iframe.src = videoEmbedURL;
+  iframe.frameborder = '0';
+  iframe.allowfullscreen = true;
+  return iframe;
+}
+
 // This function embeds the video with the given ID
 function embedVideo() {
   const videoURL = document.getElementById('videoURL').value;
   const videoID = extractVideoID(videoURL);
   const videoEmbedURL = `https://www.youtube.com/embed/${videoID}`;
+  const iframe = createIframeElement(videoEmbedURL);
   const videoContainer = document.getElementById('videoContainer');
-  videoContainer.innerHTML = `<iframe width="854" height="480" src="${videoEmbedURL}" frameborder="0" allowfullscreen></iframe>`;
+  //  Clears the contents of the videoContainer element.
+  videoContainer.innerHTML = '';
+  videoContainer.appendChild(iframe);
   const params = new URLSearchParams(window.location.search);
   params.set('v', videoID);
   const newURL = `${location.pathname}?${params}`;
@@ -32,8 +46,11 @@ window.addEventListener('popstate', function() {
   const videoID = params.get('v');
   if (videoID) {
     const videoEmbedURL = `https://www.youtube.com/embed/${videoID}`;
+    const iframe = createIframeElement(videoEmbedURL);
     const videoContainer = document.getElementById('videoContainer');
-    videoContainer.innerHTML = `<iframe width="854" height="480" src="${videoEmbedURL}" frameborder="0" allowfullscreen></iframe>`;
+    //  Clears the contents of the videoContainer element.
+    videoContainer.innerHTML = '';
+    videoContainer.appendChild(iframe);
     document.getElementById('videoURL').value = `https://www.youtube.com/watch?v=${videoID}`;
   }
 });
@@ -43,8 +60,11 @@ window.onload = function () {
   const videoID = params.get('v');
   if (videoID) {
     const videoEmbedURL = `https://www.youtube.com/embed/${videoID}`;
+    const iframe = createIframeElement(videoEmbedURL);
     const videoContainer = document.getElementById('videoContainer');
-    videoContainer.innerHTML = `<iframe width="854" height="480" src="${videoEmbedURL}" frameborder="0" allowfullscreen></iframe>`;
+    //  Clears the contents of the videoContainer element.
+    videoContainer.innerHTML = '';
+    videoContainer.appendChild(iframe);
     document.getElementById('videoURL').value = `https://www.youtube.com/watch?v=${videoID}`;
   }
 
