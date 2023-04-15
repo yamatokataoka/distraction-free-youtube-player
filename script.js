@@ -27,6 +27,17 @@ function embedVideo() {
 }
 
 // This function loads the video with the given ID if it has been previously embedded
+window.addEventListener('popstate', function() {
+  const params = new URLSearchParams(window.location.search);
+  const videoID = params.get('v');
+  if (videoID) {
+    const videoEmbedURL = `https://www.youtube.com/embed/${videoID}`;
+    const videoContainer = document.getElementById('videoContainer');
+    videoContainer.innerHTML = `<iframe width="854" height="480" src="${videoEmbedURL}" frameborder="0" allowfullscreen></iframe>`;
+    document.getElementById('videoURL').value = `https://www.youtube.com/watch?v=${videoID}`;
+  }
+});
+
 window.onload = function () {
   const params = new URLSearchParams(window.location.search);
   const videoID = params.get('v');
