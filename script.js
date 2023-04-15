@@ -30,15 +30,14 @@ function createIframeElement(videoEmbedURL) {
 // This function embeds the video with the given ID
 function embedVideo() {
   const videoURL = document.getElementById('videoURL').value;
-  const videoID = extractVideoID(videoURL);
-  const videoEmbedURL = `${EMBED_BASE_URL}/${videoID}`;
+  const videoEmbedURL = `${EMBED_BASE_URL}/${extractVideoID(videoURL)}`;
   const iframe = createIframeElement(videoEmbedURL);
   const videoContainer = document.getElementById('videoContainer');
   //  Clears the contents of the videoContainer element.
   videoContainer.innerHTML = '';
   videoContainer.appendChild(iframe);
   const params = new URLSearchParams(window.location.search);
-  params.set('v', videoID);
+  params.set('v', videoURL);
   const newURL = `${location.pathname}?${params}`;
   window.history.pushState({}, '', newURL);
 }
@@ -46,29 +45,29 @@ function embedVideo() {
 // This function loads the video with the given ID if it has been previously embedded
 window.addEventListener('popstate', function() {
   const params = new URLSearchParams(window.location.search);
-  const videoID = params.get('v');
-  if (videoID) {
-    const videoEmbedURL = `${EMBED_BASE_URL}/${videoID}`;
+  const videoURL = params.get('v');
+  if (videoURL) {
+    const videoEmbedURL = `${EMBED_BASE_URL}/${extractVideoID(videoURL)}`;
     const iframe = createIframeElement(videoEmbedURL);
     const videoContainer = document.getElementById('videoContainer');
     //  Clears the contents of the videoContainer element.
     videoContainer.innerHTML = '';
     videoContainer.appendChild(iframe);
-    document.getElementById('videoURL').value = `${WATCH_BASE_URL}?v=${videoID}`;
+    document.getElementById('videoURL').value = videoURL;
   }
 });
 
 window.onload = function () {
   const params = new URLSearchParams(window.location.search);
-  const videoID = params.get('v');
-  if (videoID) {
-    const videoEmbedURL = `${EMBED_BASE_URL}/${videoID}`;
+  const videoURL = params.get('v');
+  if (videoURL) {
+    const videoEmbedURL = `${EMBED_BASE_URL}/${extractVideoID(videoURL)}`;
     const iframe = createIframeElement(videoEmbedURL);
     const videoContainer = document.getElementById('videoContainer');
     //  Clears the contents of the videoContainer element.
     videoContainer.innerHTML = '';
     videoContainer.appendChild(iframe);
-    document.getElementById('videoURL').value = `${WATCH_BASE_URL}?v=${videoID}`;
+    document.getElementById('videoURL').value = videoURL;
   }
 
   const videoForm = document.getElementById('videoForm');
