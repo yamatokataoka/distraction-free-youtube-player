@@ -1,3 +1,6 @@
+const EMBED_BASE_URL = "https://www.youtube.com/embed";
+const WATCH_BASE_URL = "https://www.youtube.com/watch";
+
 // This function extracts the video ID from a YouTube URL
 function extractVideoID(videoURL) {
   let videoID = '';
@@ -28,7 +31,7 @@ function createIframeElement(videoEmbedURL) {
 function embedVideo() {
   const videoURL = document.getElementById('videoURL').value;
   const videoID = extractVideoID(videoURL);
-  const videoEmbedURL = `https://www.youtube.com/embed/${videoID}`;
+  const videoEmbedURL = `${EMBED_BASE_URL}/${videoID}`;
   const iframe = createIframeElement(videoEmbedURL);
   const videoContainer = document.getElementById('videoContainer');
   //  Clears the contents of the videoContainer element.
@@ -45,13 +48,13 @@ window.addEventListener('popstate', function() {
   const params = new URLSearchParams(window.location.search);
   const videoID = params.get('v');
   if (videoID) {
-    const videoEmbedURL = `https://www.youtube.com/embed/${videoID}`;
+    const videoEmbedURL = `${EMBED_BASE_URL}/${videoID}`;
     const iframe = createIframeElement(videoEmbedURL);
     const videoContainer = document.getElementById('videoContainer');
     //  Clears the contents of the videoContainer element.
     videoContainer.innerHTML = '';
     videoContainer.appendChild(iframe);
-    document.getElementById('videoURL').value = `https://www.youtube.com/watch?v=${videoID}`;
+    document.getElementById('videoURL').value = `${WATCH_BASE_URL}?v=${videoID}`;
   }
 });
 
@@ -59,13 +62,13 @@ window.onload = function () {
   const params = new URLSearchParams(window.location.search);
   const videoID = params.get('v');
   if (videoID) {
-    const videoEmbedURL = `https://www.youtube.com/embed/${videoID}`;
+    const videoEmbedURL = `${EMBED_BASE_URL}/${videoID}`;
     const iframe = createIframeElement(videoEmbedURL);
     const videoContainer = document.getElementById('videoContainer');
     //  Clears the contents of the videoContainer element.
     videoContainer.innerHTML = '';
     videoContainer.appendChild(iframe);
-    document.getElementById('videoURL').value = `https://www.youtube.com/watch?v=${videoID}`;
+    document.getElementById('videoURL').value = `${WATCH_BASE_URL}?v=${videoID}`;
   }
 
   const videoForm = document.getElementById('videoForm');
