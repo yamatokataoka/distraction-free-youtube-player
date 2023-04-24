@@ -3,17 +3,7 @@ const WATCH_BASE_URL = "https://www.youtube.com/watch";
 
 // This function extracts the video ID from a YouTube URL
 function extractVideoID(videoURL) {
-  let videoID = '';
-  if (videoURL.indexOf('youtu.be/') !== -1) { // If the URL is in the short format
-    videoID = videoURL.split('youtu.be/')[1];
-  } else if (videoURL.indexOf('v=') !== -1) { // If the URL is in the long format
-    videoID = videoURL.split('v=')[1];
-    const ampersandPosition = videoID.indexOf('&');
-    if (ampersandPosition !== -1) {
-      videoID = videoID.substring(0, ampersandPosition);
-    }
-  }
-  return videoID;
+  return new URL(videoURL).searchParams.get('v') || videoURL.split('/').pop();
 }
 
 // This function creates the iframe element with the given URL
