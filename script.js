@@ -12,8 +12,8 @@ function createIframeElement(videoEmbedURL) {
   iframe.width = '854';
   iframe.height = '480';
   iframe.src = videoEmbedURL;
-  iframe.frameborder = '0';
-  iframe.allowfullscreen = true;
+  iframe.setAttribute('frameborder', '0');
+  iframe.setAttribute('allowfullscreen', '');
   return iframe;
 }
 
