@@ -27,19 +27,14 @@ function createIframeElement(videoEmbedURL) {
   return iframe;
 }
 
-// This function embeds the video with the given ID
-function embedVideo() {
-  const videoURL = document.getElementById('videoURL').value;
+// This function embeds the video with the given URL
+function embedVideo(videoURL) {
   const videoEmbedURL = `${EMBED_BASE_URL}/${extractVideoID(videoURL)}`;
   const iframe = createIframeElement(videoEmbedURL);
   const videoContainer = document.getElementById('videoContainer');
-  //  Clears the contents of the videoContainer element.
+  // Clears the contents of the videoContainer element.
   videoContainer.innerHTML = '';
   videoContainer.appendChild(iframe);
-  const params = new URLSearchParams(window.location.search);
-  params.set('v', videoURL);
-  const newURL = `${location.pathname}?${params}`;
-  window.history.pushState({}, '', newURL);
 }
 
 // This function loads the video with the given ID if it has been previously embedded
@@ -47,12 +42,7 @@ window.addEventListener('popstate', function() {
   const params = new URLSearchParams(window.location.search);
   const videoURL = params.get('v');
   if (videoURL) {
-    const videoEmbedURL = `${EMBED_BASE_URL}/${extractVideoID(videoURL)}`;
-    const iframe = createIframeElement(videoEmbedURL);
-    const videoContainer = document.getElementById('videoContainer');
-    //  Clears the contents of the videoContainer element.
-    videoContainer.innerHTML = '';
-    videoContainer.appendChild(iframe);
+    embedVideo(videoURL)
     document.getElementById('videoURL').value = videoURL;
   }
 });
@@ -61,18 +51,17 @@ window.onload = function () {
   const params = new URLSearchParams(window.location.search);
   const videoURL = params.get('v');
   if (videoURL) {
-    const videoEmbedURL = `${EMBED_BASE_URL}/${extractVideoID(videoURL)}`;
-    const iframe = createIframeElement(videoEmbedURL);
-    const videoContainer = document.getElementById('videoContainer');
-    //  Clears the contents of the videoContainer element.
-    videoContainer.innerHTML = '';
-    videoContainer.appendChild(iframe);
+    embedVideo(videoURL)
     document.getElementById('videoURL').value = videoURL;
   }
-
   const videoForm = document.getElementById('videoForm');
   videoForm.addEventListener('submit', function (event) {
     event.preventDefault();
-    embedVideo();
+    const videoURL = document.getElementById('videoURL').value;
+    embedVideo(videoURL);
+    const params = new URLSearchParams(window.location.search);
+    params.set('v', videoURL);
+    const newURL = `${location.pathname}?${params}`;
+    window.history.pushState({}, '', newURL);
   });
 };
