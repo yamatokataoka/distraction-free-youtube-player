@@ -1,5 +1,7 @@
 # Distraction-Free YouTube Player
 
+**Disclaimer: created using ChatGPT**
+
 The Distraction-Free YouTube Player is a simple web application that allows you to play YouTube videos without any distracting elements, such as ads, recommendations, or comments. You just need to enter the YouTube video URL, and the player will display the video in a distraction-free environment.
 
 # How to use
